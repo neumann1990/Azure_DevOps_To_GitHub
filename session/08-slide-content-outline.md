@@ -5,13 +5,15 @@ tags: [session, outline, slides, content, review]
 updated: 2026-09-21
 ---
 
-**In one line:** High-level content for every slide in the deck, for review before the .pptx gets built — 6 sections, 54 section slides + a 10-minute final Q&A, 80 + 10 = 90 minutes.
+**In one line:** High-level content for every slide in the deck — 6 sections, 57 section slides + a 10-minute final Q&A, 82.5 + 10 = 92.5 minutes. **Sections 1, 3, and 4 are now built** (not just outlined); their entries below reflect the actual .pptx, not the pre-build plan.
 
 This is content, not copy — bullets to review and correct, not final on-slide wording. Anything still open is marked `[OPEN]`. See [`06-slide-deck-outline.md`](06-slide-deck-outline.md) for the timing/slide-count rationale this content fills in.
 
 ---
 
-## Section 1 — Why Leave the Herd (13 min, 9 slides)
+## Section 1 — Why Leave the Herd (15 min, 11 slides — BUILT)
+
+Status: built and QA'd (font sizes bumped for auditorium legibility; see delivered `.pptx`). This entry reflects the actual deck, which grew by two slides and two minutes past the pre-build plan — see [`06-slide-deck-outline.md`](06-slide-deck-outline.md#what-changed-from-the-previous-draft) for why.
 
 **1. Title + tagline**
 "Azure DevOps to GitHub Enterprise: The Great Migration." Tagline: _"Observe the DevOps Engineer in their natural habitat."_
@@ -19,32 +21,37 @@ This is content, not copy — bullets to review and correct, not final on-slide 
 **1.5. Thank you to sponsors**
 Boilerplate sponsor thank you slide.
 
-**2. Agenda + the two debates I'm not having**
-Six legs of the expedition, roughly 15 min each. Not debating GitHub vs. other CI/CD platforms, or Copilot vs. other AI tools — destination is chosen, this talk is the journey. Many aspects of the journey could apply to migrating to other CI/CD platforms.
+**2. Agenda + "Trails We're Not Hiking"**
+Six legs of the expedition, roughly 15 min each. Right panel reframed from "the two debates I'm not having" into expedition-themed copy: not debating GitHub vs. other CI/CD platforms, or Copilot vs. other AI tools — destination is chosen, this talk is the journey. Many aspects of the journey could apply to migrating to other CI/CD platforms.
 
 **3. Opener card — "Migration Season Has Begun"**
 Full-bleed nature photography, documentary voice delivers the line live.
 
-**4. Why migrate — the AI angle**
-The honest primary driver: every dollar of Copilot investment (Chat, Coding Agent, Autofix, Agentic Code Review, Agent HQ) lands on GitHub, none on Azure DevOps. If AI-assisted development matters at scale, repos need to live where the AI lives. Also call out the direction of the industry from an AI perspective.
+**4. "The Honest Primary Driver" — why migrate, the AI angle**
+Rewritten as one flowing paragraph plus two comparison pill-cards (GitHub: "Full agentic Copilot suite, shipping now" / Azure DevOps: "AI features arriving, roadmap still catching up") rather than three disjointed text blocks. Every dollar of Copilot investment (Chat, Coding Agent, Autofix, Agentic Code Review, Agent HQ) has landed on GitHub first; Microsoft is adding AI to Azure DevOps too, just not as quickly or as feature-complete yet. If AI-assisted development matters at scale, repos need to live where the AI lives now.
 
-**5. Copilot capability list — GitHub-exclusive** `[QR: GitHub Copilot app docs]`
-Bullet list of the GitHub-only capabilities named above, plus the Copilot desktop app as the agent-orchestration surface.
+**5. "Copilot's Head Start on GitHub"**
+Replaces the originally-planned flat "GitHub-exclusive" bullet list. Fact-checking (prompted by Kevin, since Azure DevOps now exposes its own MCP server to Copilot) found the exclusivity claim didn't hold for 3 of 5 capabilities. Now a native comparison table — Capability / On GitHub / On Azure DevOps — covering Copilot Chat, Coding Agent, Autofix, Agentic Code Review, and Agent HQ, with a full-width note below acknowledging "the gap is real, but closing" and a QR to `github.com/microsoft/azure-devops-mcp`.
 
-**6. Platform direction: GitHub (AI-native) vs. Azure DevOps (enterprise orchestration)**
-Not a replacement — a split in purpose. Azure DevOps has an active roadmap through 2026+. Microsoft's own framing: GitHub for AI-native dev, Azure DevOps for enterprise orchestration (Boards, Test Plans, release governance).
+**6. "The Terrain Changed Since I Proposed This Talk" — NEW, not in original plan**
+Added per Kevin's explicit request. A 5-point horizontal timeline (Nov 2024: Anthropic introduces MCP → Mar–Apr 2025: OpenAI and Google DeepMind adopt it → Jun 2025: Microsoft ships the Azure DevOps MCP Server public preview → Sep 2025: the official MCP registry launches in preview → Dec 2025: Anthropic donates MCP governance to the Linux Foundation's Agentic AI Foundation), with two field-cards: one on how MCP opens doors beyond CI/CD platform migration entirely, and a self-aware note that the talk's own premise shifted underneath it since it was proposed. Plain-text URL to `modelcontextprotocol.io` (no QR — slide was already visually dense).
 
-**7. The hybrid pattern, per Microsoft's own recommendation**
-Move source code to GitHub, keep Azure Boards for planning. Developers get GitHub + Copilot; managers keep sprint planning and Power BI. GHEC includes free Azure DevOps Basic access. This is the shape the rest of the talk builds toward, not a compromise.
+**7. "A Split in Purpose, Not a Replacement"**
+Not a replacement — a split in purpose. Azure DevOps has an active roadmap through 2026+. Microsoft's own framing: GitHub for AI-native development, Azure DevOps for enterprise orchestration (Boards, Test Plans, release governance).
 
-**8. Non-AI reasons**
-100M+ developers already on GitHub. 20,000+ community actions vs. a smaller Azure Pipelines task catalogue. Open-source/external contributors are already there.
+**8. "The Hybrid Pattern — Microsoft's Own Recommendation"**
+Redesigned into 3 icon-badge columns (Developers / Managers / Budget) instead of one big dark block, per Kevin's feedback that the original looked "cobbled together." Move source code to GitHub, keep Azure Boards for planning. Developers get GitHub + Copilot; managers keep sprint planning and Power BI. GHEC includes free Azure DevOps Basic access. This is the shape the rest of the talk builds toward, not a compromise.
 
-**9. Q&A pocket**
+**9. "And the Non-AI Reasons, for Completeness"**
+Grew from 3 stat-cards to a 5-item list, per Kevin's request. Original three: 100M+ developers already on GitHub; 20,000+ community Actions vs. a smaller Azure Pipelines task catalogue; open-source/external contributors already default to GitHub. Two new: GitHub Actions' flexibility (reusable workflows, matrix builds, marketplace, self-hosted runners), and running a workflow locally to troubleshoot (tools like `act` execute a specific Actions definition on your own machine, no hosted-runner queue).
+
+**10. Q&A pocket**
 
 ---
 
-## Section 2 — A Field Guide to the Local Species (10 min, 8 slides)
+## Section 2 — A Field Guide to the Local Species (10 min, 8 slides — BUILT)
+
+Status: built and QA'd, matches this plan's slide count and order exactly. Two notes from the build: the scorecard's "Boards" row landed as a `NEEDS A DECISION` verdict (hybrid — connect it, don't migrate it) rather than a flat red, since section 4 resolves it as a decision, not a dead end; and the Dashboards slide deliberately avoids naming a specific GitHub feature ("GitHub's built-in engineering metrics," not a product name) until the `[OPEN]` verification below is resolved.
 
 **1. Opener card — "A Field Guide to the Local Species"**
 
@@ -70,7 +77,9 @@ File-based, version-controlled things travel well (repos, wiki). Database-backed
 
 ---
 
-## Section 3 — Crossing the River (16 min, 11 slides)
+## Section 3 — Crossing the River (16.5 min, 12 slides — BUILT, one slide is a placeholder)
+
+Status: built and QA'd. Revised from the first build: tooling is now two dedicated slides instead of one, the old standalone sequencing-rule slide is folded into a new `gh-ado2gh` caveats slide, and the walkthrough slide is now a real, screenshot-free timeline. **Only slide 11 (the takeaways) is not real content yet** — see the `[OPEN]` note below and in [`06-slide-deck-outline.md`](06-slide-deck-outline.md#what-changed-from-the-previous-draft).
 
 **1. Opener card — "Rare Footage of Successful Deployment"**
 
@@ -83,29 +92,34 @@ Framework slide introducing the three approaches this section walks — a mental
 **4. Approach 1 — Manual** `[QR: migrate-from-azure-pipelines docs]`
 Concept mapping table (Pipeline→Workflow, Agent Pool→Runner, Service Connection→OIDC/secrets, Variable Group→secrets/variables, Task→Action, `condition`→`if`, `dependsOn`→`needs`, stages→separate workflow files). Key syntax differences: no classic-editor equivalent, explicit job structure always required, script steps consolidate to `run`+`shell`, GitHub Actions fails fast by default (Azure Pipelines doesn't), no stderr-triggers-failure equivalent.
 
-**5. Approach 2 — Tooling** `[QR: gh-ado2gh, gh-actions-importer]`
-`gh-ado2gh` for repos (inventory-report, generate-script, the `--all` flag for pipeline rewiring/team creation/Boards integration). `gh-actions-importer audit` gives the automatable/partial/manual breakdown per pipeline — per Kevin's note, the single best slide-quantified evidence in the whole PoC.
+**5. Approach 2 — `gh-ado2gh` (for repos)** `[QR: gh-ado2gh]`
+Split out from the old combined "Tooling" slide, per Kevin's request — there was enough content on each tool to earn its own slide. What it does: inventory-report surveys before anything moves, generate-script produces the real migration script, the --all flag also rewires pipelines/creates teams/connects Boards. What it doesn't do: doesn't touch pipeline logic (that's the next tool), doesn't bring Git LFS objects automatically, doesn't decide identity mapping for you. Why choose it: the default answer for repo migration at any real scale — free, official, GitHub-maintained.
 
-**6. ELM — the preview service we couldn't PoC**
+**6. `gh-ado2gh` — caveats & the one sequencing rule**
+New slide, absorbing the content that used to be its own standalone slide 10: install the Pipelines GitHub App _before_ migrating repos with gh-ado2gh — not optional, otherwise the migration script can't auto-reconfigure pipelines to point at GitHub and it becomes a manual repo-by-repo fix while everyone asks why the build is red. Same ordering constraint applies to identity mapping (plan before first migration — mannequins are created at migration time, section 6 covers the cost of waiting).
+
+**7. Approach 2 — `gh-actions-importer` (for pipelines)** `[QR: gh-actions-importer]`
+The other half of the old combined slide. What it does: audit classifies every pipeline as automatable/partial/manual, dry-run previews the converted workflow, converts the automatable parts rather than just diagnosing them. What it doesn't do: doesn't touch repos, the "partial" bucket still needs a human, faithfully translates whatever's already broken in the source. Why choose it: per Kevin's note, the audit breakdown is the single best slide-quantified evidence in the whole PoC — turns "this will take a while" into an actual number.
+
+**8. ELM — the preview service we couldn't PoC**
 Continuous sync + scheduled cutover, sub-30-min read-only window at cutover. What it automates (pre-migration checks, org/repo creation, PR/branch-policy sync, Boards connection, pipeline rewiring). What it still requires manually (cleanup, access setup, verification, work-item/wiki/pipeline migration itself). Requires a GHE data-residency tenant Hunter doesn't have — research only, say so plainly on the slide. The honest contrast: the standard GEI CLI already does more than marketing comparisons imply; what ELM genuinely adds is the continuous-sync/scheduled-cutover experience, not a feature list.
 
-**7. Approach 3 — AI** `[QR: neumann1990/Azure_DevOps_To_GitHub, prompts/]`
+**9. Approach 3 — AI** `[QR: neumann1990/Azure_DevOps_To_GitHub, prompts/]`
 Prompt-driven mapping: analyze → convert → validate, as three separate prompts rather than one shot. Why three steps: the model that converts shouldn't be the only check on its own conversion. This is where section 1's "AI is the real reason" thesis gets a demonstrable payoff. `[OPEN: none of the three prompts have been run against a real pipeline yet]`
 
-**8. Screenshot walkthrough — high-level steps**
-Repo migration → pipeline rewrite, screenshots not video. `[OPEN: which repo(s) — need one clean, one deliberately ugly, per session/03-open-questions.md]`
+**10. The Crossing, Mapped**
+Replaces the old screenshot-walkthrough slide — per Kevin's request, no screenshots at all now, just a four-step horizontal timeline (repo migration with gh-ado2gh → pipeline audit with gh-actions-importer → YAML rewrite using the Approach 1 mapping → first green build, the real finish line). This is real, presentable content: the sequence is the same regardless of which repo runs through it, so unlike the old version it isn't blocked on picking a repo. Closes with a one-line pointer that the next slide is where real, repo-specific findings land once this is actually run.
 
-**9. Key takeaways from the walkthrough**
-What actually broke or surprised, in the specific repo(s) used — fill in once the walkthrough is run.
+**11. Key takeaways from the crossing — PLACEHOLDER, not built**
+Built as a list of fill-in-the-blank prompts (which task type caused the most rework and did the audit call it correctly; did the "clean" repo turn out clean; how did the "ugly" repo's actual time compare to the 1–2 day estimate; did the AI-prompt approach get tried and how did it compare) rather than invented findings. `[OPEN: depends entirely on slide 10's sequence actually being run against a real repo, which in turn depends on picking one clean repo and one deliberately ugly one — see session/03-open-questions.md]` — fill in once that happens, or cut the slide rather than pad it with generic takeaways.
 
-**10. Sequencing rule: install the Pipelines GitHub App _before_ migrating repos**
-Not optional — otherwise the migration script can't auto-reconfigure pipelines to point at GitHub, and it becomes a manual repo-by-repo fix while everyone asks why the build is red. Same ordering constraint applies to identity mapping (plan before first migration — mannequins are created at migration time).
-
-**11. Q&A pocket**
+**12. Q&A pocket**
 
 ---
 
-## Section 4 — Sprint Planning in Its Natural Habitat (13 min, 9 slides)
+## Section 4 — Sprint Planning in Its Natural Habitat (13 min, 9 slides — BUILT)
+
+Status: built and QA'd, matches this plan's slide count, order, and timing exactly — no open items.
 
 **1. Opener card — "Watch as the Scrum Master Approaches Carefully"**
 
@@ -134,7 +148,7 @@ Explicit takeaway slide — don't migrate to GitHub Issues unless PM needs are g
 
 ---
 
-## Section 5 — Preventing the Uprising (14 min, 9 slides)
+## Section 5 — Preventing the Uprising (14 min, 9 slides — BUILT, matches this plan exactly)
 
 **1. Opener card — "The Senior Engineer Defends an Ancient Pipeline"**
 
@@ -163,7 +177,7 @@ Startups and one-to-three-squad teams: GitHub Projects' lightweight fit wins. Sc
 
 ---
 
-## Section 6 — The Watering Hole Nobody Told to Move (14 min, 8 slides)
+## Section 6 — The Watering Hole Nobody Told to Move (14 min, 8 slides — BUILT, matches this plan exactly)
 
 **1. Opener card — "The Watering Hole Nobody Told to Move"**
 
