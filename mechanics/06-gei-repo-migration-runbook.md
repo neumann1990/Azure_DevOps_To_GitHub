@@ -2,7 +2,7 @@
 title: GEI repository migration runbook
 status: researched
 tags: [gei, gh-ado2gh, runbook, cli, procedure]
-updated: 2026-09-04
+updated: 2026-09-20
 ---
 
 **In one line:** The official six-part GitHub procedure for migrating repositories from Azure DevOps to GitHub Enterprise Cloud with the `gh-ado2gh` extension, start to finish.
@@ -13,7 +13,7 @@ Source: <https://docs.github.com/en/migrations/ado> — all six steps captured b
 
 ## 0. Hard constraints, before anything else
 
-**Azure DevOps Cloud only.** GEI cannot migrate from Azure DevOps *Server*. If you're on Server, migrate to Azure DevOps Cloud first ([Microsoft's migration service](https://azure.microsoft.com/en-us/services/devops/migrate/)), then run GEI.
+**Azure DevOps Cloud only.** GEI cannot migrate from Azure DevOps _Server_. If you're on Server, migrate to Azure DevOps Cloud first ([Microsoft's migration service](https://azure.microsoft.com/en-us/services/devops/migrate/)), then run GEI.
 
 **Decide your enterprise type before creating the enterprise account.** Whether you use Enterprise Managed Users affects how members authenticate and how you manage identities and access — and it's not a decision you want to revisit later. → [`02-identity-and-org-structure.md`](02-identity-and-org-structure.md)
 
@@ -34,27 +34,27 @@ Source: [Understand migrations](https://docs.github.com/en/migrations/ado/unders
 - User history for pull requests
 - Work item links on pull requests
 - Attachments on pull requests
-- Branch policies for the repository — *user-scoped branch policies and cross-repo branch policies are **not** included*
+- Branch policies for the repository — _user-scoped branch policies and cross-repo branch policies are **not** included_
 
 ### Limitations of GitHub
 
-| Limit | Detail |
-|---|---|
-| **2 GiB per Git commit** | No single commit can exceed 2 GiB. Split larger commits. |
-| **2 GiB per push** | Larger pushes fail with `pack exceeds maximum allowed size`. |
+| Limit                     | Detail                                                                                                                       |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **2 GiB per Git commit**  | No single commit can exceed 2 GiB. Split larger commits.                                                                     |
+| **2 GiB per push**        | Larger pushes fail with `pack exceeds maximum allowed size`.                                                                 |
 | **255 bytes per Git ref** | Usually ~255 characters, but non-ASCII characters (emoji) consume more than one byte. A clear error is returned if exceeded. |
-| **100 MiB per file** | After migration completes. During migration the limit is raised to 400 MiB. Use Git LFS for large files. |
+| **100 MiB per file**      | After migration completes. During migration the limit is raised to 400 MiB. Use Git LFS for large files.                     |
 
 ### Limitations of GitHub Enterprise Importer
 
-| Limit | Detail |
-|---|---|
+| Limit                                          | Detail                                                                                                                                                                                                                          |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **40 GiB per Git repository** (public preview) | Applies to source code only. Check with [git-sizer](https://github.com/github/git-sizer) and review total blob size. git-sizer also surfaces large-file, blob-size, commit-size and tree-count problems that affect migrations. |
-| **400 MiB per file** | During migration. |
-| **Git LFS objects are not migrated** | Repositories *using* LFS migrate fine, but the LFS objects themselves don't come across. Push them to the destination as a follow-up task. |
-| **Delayed code search** | Re-indexing can take a few hours; code searches may return unexpected results until it finishes. |
-| **Org rulesets can fail the migration** | E.g. a rule requiring commit author emails to end `@monalisa.cat` will fail a migration containing non-compliant commits. See Step 2. |
-| **Mannequin content may not be searchable** | Content attributed to a mannequin (assigned issues, etc.) may not surface in search until the mannequin is reclaimed. |
+| **400 MiB per file**                           | During migration.                                                                                                                                                                                                               |
+| **Git LFS objects are not migrated**           | Repositories _using_ LFS migrate fine, but the LFS objects themselves don't come across. Push them to the destination as a follow-up task.                                                                                      |
+| **Delayed code search**                        | Re-indexing can take a few hours; code searches may return unexpected results until it finishes.                                                                                                                                |
+| **Org rulesets can fail the migration**        | E.g. a rule requiring commit author emails to end `@monalisa.cat` will fail a migration containing non-compliant commits. See Step 2.                                                                                           |
+| **Mannequin content may not be searchable**    | Content attributed to a mannequin (assigned issues, etc.) may not surface in search until the mannequin is reclaimed.                                                                                                           |
 
 > **Kevin:** The LFS gap and the 40 GiB ceiling are the two that will bite a real enterprise estate, and neither appeared in the third-party guides I'd collected. Worth a slide — "Git is Git" is true right up until it isn't.
 
@@ -71,16 +71,18 @@ See [Granting the migrator role](https://docs.github.com/en/migrations/ado/grant
 
 ### GitHub personal access token (classic)
 
-> **Classic tokens only.** Fine-grained PATs are not supported. This means GEI cannot be used if your organization enforces the *"Restrict personal access tokens (classic) from accessing your organizations"* policy.
+> **Classic tokens only.** Fine-grained PATs are not supported. This means GEI cannot be used if your organization enforces the _"Restrict personal access tokens (classic) from accessing your organizations"_ policy.
+
+> **Kevin:** Confirmed hands-on during the PoC — `gh-ado2gh` rejects a fine-grained `GH_PAT` outright. Had to generate a classic token instead. Budget time for this if your org defaults to fine-grained tokens or has started phasing out classic ones. You'll also need to explicitly assign your PAT access to your organization.
 
 Required scopes depend on role and task:
 
-| Task | Organization owner | Migrator |
-|---|---|---|
-| Assigning the migrator role for repository migrations | `admin:org` | — |
+| Task                                                      | Organization owner              | Migrator                       |
+| --------------------------------------------------------- | ------------------------------- | ------------------------------ |
+| Assigning the migrator role for repository migrations     | `admin:org`                     | —                              |
 | Running a repository migration (destination organization) | `repo`, `workflow`, `admin:org` | `repo`, `workflow`, `read:org` |
-| Downloading a migration log | `repo`, `workflow`, `admin:org` | `repo`, `workflow`, `read:org` |
-| Reclaiming mannequins | `repo`, `workflow`, `admin:org` | — |
+| Downloading a migration log                               | `repo`, `workflow`, `admin:org` | `repo`, `workflow`, `read:org` |
+| Reclaiming mannequins                                     | `repo`, `workflow`, `admin:org` | —                              |
 
 ### Azure DevOps personal access token
 
@@ -216,10 +218,10 @@ Because permissions work differently, GEI **does not attempt to migrate reposito
 
 Instead, the ADO2GH CLI creates **two GitHub teams per Azure DevOps team project**:
 
-| Team | Access to migrated repositories |
-|---|---|
-| `TEAM-PROJECT-Maintainers` | Maintainer |
-| `TEAM-PROJECT-Admins` | Admin |
+| Team                       | Access to migrated repositories |
+| -------------------------- | ------------------------------- |
+| `TEAM-PROJECT-Maintainers` | Maintainer                      |
+| `TEAM-PROJECT-Admins`      | Admin                           |
 
 Grant access by adding people to these teams — manually, or by managing group membership in Azure Active Directory if you linked the teams to AAD groups during migration.
 
@@ -239,19 +241,19 @@ Produces one migration command per repository.
 gh ado2gh generate-script --ado-org SOURCE --github-org DESTINATION --output FILENAME
 ```
 
-| Placeholder | Value |
-|---|---|
-| `SOURCE` | Name of the source organization |
-| `DESTINATION` | Name of the destination organization |
-| `FILENAME` | Filename for the generated script; use `.ps1` |
+| Placeholder   | Value                                         |
+| ------------- | --------------------------------------------- |
+| `SOURCE`      | Name of the source organization               |
+| `DESTINATION` | Name of the destination organization          |
+| `FILENAME`    | Filename for the generated script; use `.ps1` |
 
 Additional arguments:
 
-| Argument | Description |
-|---|---|
-| `--target-api-url TARGET-API-URL` | For GHE.com. Base API URL for your enterprise subdomain, e.g. `https://api.octocorp.ghe.com` |
-| `--all` | Adds rewiring pipelines, creating teams, and configuring Azure Boards integrations to the script |
-| `--download-migration-logs` | Downloads the migration log for each migrated repository |
+| Argument                          | Description                                                                                      |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `--target-api-url TARGET-API-URL` | For GHE.com. Base API URL for your enterprise subdomain, e.g. `https://api.octocorp.ghe.com`     |
+| `--all`                           | Adds rewiring pipelines, creating teams, and configuring Azure Boards integrations to the script |
+| `--download-migration-logs`       | Downloads the migration log for each migrated repository                                         |
 
 > **Kevin:** `--all` is the flag that does the Boards-connection and pipeline-rewiring work — the same class of post-migration setup ELM automates. Worth naming explicitly when I draw the ELM-versus-GEI contrast, so the comparison is honest rather than flattering to ELM. → [`03-enterprise-live-migrations.md`](03-enterprise-live-migrations.md)
 

@@ -1,20 +1,19 @@
 # Azure DevOps → GitHub Enterprise
 
-Working knowledge base for the **Cloud & AI Summit** session *"Azure DevOps to GitHub Enterprise: The Great Migration"* (30 September 2026, 90 minutes) and the supporting proof of concept.
-
-Source: the `ADOS - GHE` OneNote notebook, unpacked and reorganized. Nothing has been invented; where the notebook was ambiguous or a claim came from a low-authority source, that is flagged in place.
+Working knowledge base for the **Cloud & AI Summit** session _"Azure DevOps to GitHub Enterprise: The Great Migration"_ (30 September 2026, 90 minutes) and the supporting proof of concept.
 
 ---
 
 ## Map
 
-| Folder | What lives here | Read it when |
-|---|---|---|
-| [`session/`](session/) | The talk itself — abstract, scope, narrative theme, open decisions | Working on the deck |
-| [`case/`](case/) | Why anyone migrates — platform direction, decision framework, pricing | Building the "why" section |
-| [`subsystems/`](subsystems/) | One file per Azure DevOps subsystem and its GitHub counterpart | Answering "what happens to X?" |
-| [`mechanics/`](mechanics/) | How the migration is actually performed — tools, identity, ELM, sequencing | Running the PoC |
-| [`reference/`](reference/) | DORA metrics, source links, glossary | Looking something up |
+| Folder                       | What lives here                                                            | Read it when                   |
+| ---------------------------- | -------------------------------------------------------------------------- | ------------------------------ |
+| [`session/`](session/)       | The talk itself — abstract, scope, narrative theme, open decisions         | Working on the deck            |
+| [`case/`](case/)             | Why anyone migrates — platform direction, decision framework, pricing      | Building the "why" section     |
+| [`subsystems/`](subsystems/) | One file per Azure DevOps subsystem and its GitHub counterpart             | Answering "what happens to X?" |
+| [`mechanics/`](mechanics/)   | How the migration is actually performed — tools, identity, ELM, sequencing | Running the PoC                |
+| [`prompts/`](prompts/)       | AI prompts for the section-3 "AI approach" — analyze, convert, validate Azure Pipelines → Actions | Building or demoing the AI approach |
+| [`reference/`](reference/)   | DORA metrics, source links, glossary                                       | Looking something up           |
 
 Start here:
 
@@ -32,7 +31,7 @@ Every file opens with YAML frontmatter and a one-line summary:
 ```yaml
 ---
 title: Repositories
-status: verified          # verified | researched | unverified | stub
+status: verified # verified | researched | unverified | stub
 tags: [repos, gei, tooling]
 updated: 2026-09-04
 ---
@@ -40,12 +39,12 @@ updated: 2026-09-04
 
 `status` means:
 
-| Value | Meaning |
-|---|---|
-| `verified` | Kevin has confirmed this hands-on in the PoC |
-| `researched` | Sourced from docs or articles, not yet tested |
+| Value        | Meaning                                                                |
+| ------------ | ---------------------------------------------------------------------- |
+| `verified`   | Kevin has confirmed this hands-on in the PoC                           |
+| `researched` | Sourced from docs or articles, not yet tested                          |
 | `unverified` | From a low-authority or marketing source — treat as a lead, not a fact |
-| `stub` | Placeholder; needs writing |
+| `stub`       | Placeholder; needs writing                                             |
 
 ## Conventions
 
