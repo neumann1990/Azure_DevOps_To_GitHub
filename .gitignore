@@ -1,0 +1,18 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local scratch — put working files here and they stay out of the repo
+scratch/
+*.tmp
+
+# Never commit these: the migration PATs from the runbook
+.env
+*.pat
+secrets.*
